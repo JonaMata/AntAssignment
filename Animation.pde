@@ -14,15 +14,23 @@ class Animation {
       frame.resize(w, h);
     }
   }
-
+  
   void display(float x, float y, float r) {
-    if (!isPaused) frameNumber = (frameNumber + 1) % count;
     pushMatrix();
     translate(x, y);
     rotate(r+HALF_PI);
     image(frames.get(frameNumber), 0, 0);
     popMatrix();
+  }
+
+  void play() {
+    if (!isPaused) frameNumber = (frameNumber + 1) % count;
   } 
+  
+  void playFor(int duration) {
+    if(!isPaused && frameNumber < duration) frameNumber = (frameNumber + 1) % count;
+  }
+  
 
   void togglePause(boolean pauseState) {
     isPaused = pauseState;

@@ -19,6 +19,7 @@ class Ant {
       pheromone.display();
     }
     animation.display(pos.x, pos.y, vel.heading());
+    animation.play();
     update();
     spawnPheromones();
   }
