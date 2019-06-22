@@ -16,6 +16,14 @@ class Pheromone {
     ellipse(x, y, size, size);
     lifespan *= exp(-0.05);
   }
+  
+  boolean isThere() {
+    return size > 0;
+  }
+  
+  float getSize() {
+    return size;
+  }
 
   boolean isFaded() {
     return lifespan < 1 ? true : false;
