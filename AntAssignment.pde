@@ -3,7 +3,7 @@ Grid grid;
 void setup() {
   surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
   grid = new Grid();
-  grid.addRandomAnts(5);
+  grid.addRandomAnts(1);
 }
 
 void draw() {

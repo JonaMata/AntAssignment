@@ -1,7 +1,7 @@
 class Ant {
   Render animation;
   PVector pos, vel, acc, dest;
-  
+
   float maxSpeed = 1;
 
   Ant(float x, float y, int w, int h) {
@@ -10,7 +10,6 @@ class Ant {
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
     animation = new Render("Ant", 60, w, h+h/4);
-    //pheromones = new ArrayList<Pheromone>();
   }
 
   void display() {
@@ -22,9 +21,9 @@ class Ant {
   void setDest(Cell cell) {
     this.dest = new PVector(cell.x, cell.y);
   }
-  
-  int[] getCellPos() {
-    return new int[]{(int)pos.x/CELL_SIZE,(int)pos.y/CELL_SIZE}; 
+
+  Cell getCell(Cell[][] cells) {
+    return cells[(int)pos.x/CELL_SIZE][(int)pos.y/CELL_SIZE];
   }
 
   void update() {    
