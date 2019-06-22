@@ -16,7 +16,10 @@ class Grid {
     for(Ant ant : ants) {
       ant.display();
       if(ant.canSearch()) {
-        ant.setDest(cells[(int)random(0, GRID_HEIGHT)][(int)random(0, GRID_WIDTH)]);
+        int[] cellPos = ant.getCellPos();
+        int[] destPos = {constrain(cellPos[0]+(int)random(-1,2),0,GRID_WIDTH), constrain(cellPos[1]+(int)random(-1,2),0,GRID_HEIGHT)};
+        Cell newDest = cells[destPos[0]][destPos[1]];
+        ant.setDest(newDest);
       }
     }
     //for (int i = 0; i < GRID_HEIGHT; i++) {

@@ -22,6 +22,10 @@ class Ant {
   void setDest(Cell cell) {
     this.dest = new PVector(cell.x, cell.y);
   }
+  
+  int[] getCellPos() {
+    return new int[]{(int)pos.x/CELL_SIZE,(int)pos.y/CELL_SIZE}; 
+  }
 
   void update() {    
     PVector force = dest.copy().sub(pos).setMag(0.2);
