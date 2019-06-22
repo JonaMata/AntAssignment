@@ -1,15 +1,17 @@
 class Grid {
   ArrayList<Ant> ants;
   Cell[][] cells;
+  Nest nest;
 
   Grid() {
-    ants = new ArrayList<Ant>();
     cells = new Cell[GRID_WIDTH][GRID_HEIGHT];
     for (int i = 0; i < GRID_WIDTH; i++) {
       for (int j = 0; j < GRID_HEIGHT; j++) {
         cells[i][j] = new Cell(i*CELL_SIZE, j*CELL_SIZE);
       }
     }
+    ants = new ArrayList<Ant>();
+    nest = new Nest(cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_WIDTH)]);
   }
 
   void display() {
@@ -21,20 +23,22 @@ class Grid {
     for (Ant ant : ants) {
       ant.display();
       if (ant.canSearch()) {
-        ant.getCell(cells).addPheromone();
-        println(ant.getCell(cells).x, ant.getCell(cells).y);
-        int[] destPos = {constrain(ant.getCell(cells).x/CELL_SIZE+(int)random(-1, 2), 0, GRID_WIDTH), constrain(ant.getCell(cells).y/CELL_SIZE+(int)random(-1, 2), 0, GRID_HEIGHT)};
-        println(destPos);
+        Cell currentCell = ant.getCell(cells);
+        currentCell.addPheromone();
+        int[] destPos = {
+          constrain(currentCell.x/CELL_SIZE+(int)random(-1, 2), 0, GRID_WIDTH), 
+          constrain(currentCell.y/CELL_SIZE+(int)random(-1, 2), 0, GRID_HEIGHT)
+        };
         Cell newDest = cells[destPos[0]][destPos[1]];
         ant.setDest(newDest);
       }
     }
+    nest.display();
   }
 
-  void addRandomAnts(int amount) {
+  void addAnts(int amount) {
     for (int i = 0; i < amount; i++) {
-      Cell randomCell = cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_HEIGHT)];
-      ants.add(new Ant(randomCell.x, randomCell.y, CELL_SIZE, CELL_SIZE));
+      ants.add(nest.spawnAnt());
     }
   }
 
@@ -44,7 +48,7 @@ class Grid {
       strokeWeight(1);
       line(x*CELL_SIZE, 0, x*CELL_SIZE, height);
     }
-    
+
     for (int y = 1; y < GRID_HEIGHT; y++) {
       stroke(0);
       strokeWeight(1);

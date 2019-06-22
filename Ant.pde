@@ -4,12 +4,12 @@ class Ant {
 
   float maxSpeed = 1;
 
-  Ant(float x, float y, int w, int h) {
+  Ant(float x, float y, int size) {
     pos = new PVector(x, y);
     dest = pos.copy();
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
-    animation = new Render("Ant", 60, w, h+h/4);
+    animation = new Render("Ant", 60, size, size+size/4);
   }
 
   void display() {

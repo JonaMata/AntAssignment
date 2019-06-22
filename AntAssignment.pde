@@ -2,8 +2,9 @@ Grid grid;
 
 void setup() {
   surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
+  rectMode(CENTER);
   grid = new Grid();
-  grid.addRandomAnts(1);
+  grid.addAnts(1);
 }
 
 void draw() {
