@@ -17,7 +17,7 @@ class Animation {
 
   void display(float x, float y, float r) {
     pushMatrix();
-    translate(x, y);
+    translate(x+GRID_SIZE/2, y+GRID_SIZE/2);
     rotate(r+HALF_PI);
     image(frames.get(frameNumber), 0, 0);
     popMatrix();
@@ -30,7 +30,6 @@ class Animation {
   void playFor(int duration) {
     if (!isPaused && frameNumber < duration) frameNumber = (frameNumber + 1) % count;
   }
-
 
   void togglePause(boolean pauseState) {
     isPaused = pauseState;
