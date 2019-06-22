@@ -1,9 +1,9 @@
-class Animation {
+class Render {
   ArrayList<PImage> frames;
   int frameNumber, count;
   boolean isPaused;
 
-  Animation(String imageFolder, int count, int w, int h) {
+  Render(String imageFolder, int count, int w, int h) {
     frames = new ArrayList<PImage>();
     imageMode(CENTER);
     this.count = count;

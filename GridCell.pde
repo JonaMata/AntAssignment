@@ -21,7 +21,7 @@ class Cell {
     //}
   }
 
-  void displayContent() {
+  void display() {
       pheromone.display();
     //for(Food food : foods) {
     //  food.display();

@@ -1,10 +1,10 @@
 class Food {
   PVector pos;
-  Animation animation;
+  Render animation;
 
   Food(float x, float y) {
     pos = new PVector(x, y);
-    animation = new Animation("Food", 10, 50, 50);
+    animation = new Render("Food", 10, 50, 50);
   }
 
   void display() {

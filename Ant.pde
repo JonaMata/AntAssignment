@@ -1,5 +1,5 @@
 class Ant {
-  Animation animation;
+  Render animation;
   PVector pos, vel, acc, dest;
   
   float maxSpeed = 1;
@@ -9,7 +9,7 @@ class Ant {
     dest = pos.copy();
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
-    animation = new Animation("Ant", 60, w, h);
+    animation = new Render("Ant", 60, w, h+h/4);
     //pheromones = new ArrayList<Pheromone>();
   }
 
