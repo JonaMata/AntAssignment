@@ -52,6 +52,6 @@ class Ant {
 
   boolean canSearch() {
     if(dest == null) return true;
-    else return dist(pos.x, pos.y, dest.x, dest.y)<4;
+    else return dist(pos.x, pos.y, dest.getPos().x, dest.getPos().y)<4;
   }
 }

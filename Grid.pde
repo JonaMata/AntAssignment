@@ -7,7 +7,7 @@ class Grid {
     cells = new Cell[GRID_WIDTH][GRID_HEIGHT];
     for (int i = 0; i < GRID_WIDTH; i++) {
       for (int j = 0; j < GRID_HEIGHT; j++) {
-        cells[i][j] = new Cell(i*CELL_SIZE, j*CELL_SIZE);
+        cells[i][j] = new Cell(i, j);
       }
     }
   }
@@ -53,7 +53,7 @@ class Grid {
           }
           if(chosenCell != null) ant.setDest(chosenCell);
         } else {
-          ant.setDest(emptyCells.get(floor(random(0,emptyCells.size()+1))));
+          ant.setDest(emptyCells.get(floor(random(0,emptyCells.size()))));
         }
       }
     }
