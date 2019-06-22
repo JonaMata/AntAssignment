@@ -17,7 +17,7 @@ class Animation {
 
   void display(float x, float y, float r) {
     pushMatrix();
-    translate(x+GRID_SIZE/2, y+GRID_SIZE/2);
+    translate(x+CELL_SIZE/2, y+CELL_SIZE/2);
     rotate(r+HALF_PI);
     image(frames.get(frameNumber), 0, 0);
     popMatrix();

@@ -1,14 +1,14 @@
-class GridItem {
+class Cell {
   int x, y;
 
-  ArrayList<Pheromone> pheromones;
+  Pheromone pheromone;
   ArrayList<Food> foods;
 
-  GridItem (int x, int y) {
+  Cell (int x, int y) {
     this.x = x;
     this.y = y;
 
-    this.pheromones = new ArrayList<Pheromone>();
+    this.pheromone = new Pheromone(x, y, CELL_SIZE/2, 1000);
     this.foods = new ArrayList<Food>();
   }
 
@@ -21,20 +21,13 @@ class GridItem {
     //}
   }
 
-  void display() {
-    for (Pheromone pheromone : pheromones) {
+  void displayContent() {
       pheromone.display();
-    }
     //for(Food food : foods) {
     //  food.display();
     //}
   }
-
-  void addPheromone() {
-    println(x, y);
-    pheromones.add(new Pheromone(x*GRID_SIZE, y*GRID_SIZE, 10, 1000));
-  }
-
+  
   void addFood(Food food) {
     foods.add(food);
   }

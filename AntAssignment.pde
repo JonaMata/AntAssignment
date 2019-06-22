@@ -2,9 +2,10 @@ Grid grid;
 
 void setup() {
   //surface.setResizable(true);
-  surface.setSize(GRID_WIDTH*GRID_SIZE, GRID_HEIGHT*GRID_SIZE);
+  surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
   grid = new Grid();
-  grid.addRandomAnts(1);
+  grid.addRandomAnts();
+  //grid.addRandomAnts(1);
 }
 
 void draw() {

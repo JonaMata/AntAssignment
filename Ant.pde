@@ -1,6 +1,5 @@
 class Ant {
   Animation animation;
-  //ArrayList<Pheromone> pheromones;
   PVector pos, vel, acc, dest;
   
   float maxSpeed = 1;
@@ -20,15 +19,11 @@ class Ant {
     update();
   }
 
-  //void applyForce(PVector force) {
-  //  acc.add(force);
-  //}
-
-  void setDest(PVector dest) {
-    this.dest = dest.mult(GRID_SIZE);
+  void setDest(Cell cell) {
+    this.dest = new PVector(cell.x, cell.y);
   }
 
-  void update() {
+  void update() {    
     PVector force = dest.copy().sub(pos).setMag(0.2);
     acc.add(force);
     vel.add(acc);
@@ -38,15 +33,6 @@ class Ant {
   }
 
   boolean canSearch() {
-    //println(dist(pos.x, pos.y, dest.x, dest.y));
     return dist(pos.x, pos.y, dest.x, dest.y)<4;
-  }
-
-  PVector gridPos() {
-    return new PVector(floor(pos.x/GRID_SIZE), floor(pos.y/GRID_SIZE));
-  }
-  
-  Pheromone addPheromone() {
-    return new Pheromone(gridPos().x, gridPos().y, GRID_SIZE, 1000);
   }
 }

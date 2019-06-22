@@ -1,49 +1,46 @@
 class Grid {
-  GridItem[] gridItems;
   ArrayList<Ant> ants;
+  Cell[][] cells;
 
   Grid() {
-    gridItems = new GridItem[GRID_WIDTH*GRID_HEIGHT];
-    for (int i = 0; i<gridItems.length; i++) {
-      gridItems[i] = new GridItem(i%GRID_WIDTH, i/GRID_WIDTH);
-    }
     ants = new ArrayList<Ant>();
+    cells = new Cell[GRID_HEIGHT][GRID_WIDTH];
+    for (int i = 0; i < GRID_HEIGHT; i++) {
+      for (int j = 0; j < GRID_WIDTH; j++) {
+        cells[i][j] = new Cell(i*CELL_SIZE, j*CELL_SIZE);
+      }
+    }
   }
 
   void display() {
-    for (GridItem gridItem : gridItems) {
-      gridItem.display();
-    }
-    for (Ant ant : ants) {
-      if (ant.canSearch()) {
-        //println("yes");
-        println(ants.indexOf(ant));
-        antGridItem(ant).addPheromone();
-        ant.setDest(new PVector(ant.gridPos().x+(int)random(0, 2), ant.gridPos().y+(int)random(0, 2)));
-      }
+    for(Ant ant : ants) {
       ant.display();
+      if(ant.canSearch()) {
+        ant.setDest(cells[(int)random(0, GRID_HEIGHT)][(int)random(0, GRID_WIDTH)]);
+      }
     }
+    //for (int i = 0; i < GRID_HEIGHT; i++) {
+    //  for (int j = 0; j < GRID_WIDTH; j++) {
+    //    cells[i][j].displayContent();
+    //  }
+    //}
   }
 
-  void addRandomAnts(int amount) {
-    for (int i = 0; i < amount; i++) {
-      int randomLoc = (int) random(0, gridItems.length);
-      ants.add(new Ant(randomLoc%GRID_WIDTH*GRID_SIZE, randomLoc/GRID_HEIGHT*GRID_SIZE, GRID_SIZE, GRID_SIZE));
-    }
-  }
-  
-  GridItem antGridItem(Ant ant) {
-    return gridItems[(int) (ant.gridPos().x + ant.gridPos().y*GRID_WIDTH)];
+  void addRandomAnts() {
+    Cell randomCell = cells[(int)random(0, GRID_HEIGHT)][(int)random(0, GRID_WIDTH)];
+    ants.add(new Ant(randomCell.x, randomCell.y, CELL_SIZE, CELL_SIZE));
   }
 
   void displayGrid() {
-    stroke(0);
-    strokeWeight(1);
     for (int x = 1; x < GRID_WIDTH; x++) {
-      line(x*GRID_SIZE, 0, x*GRID_SIZE, height);
+      stroke(0);
+      strokeWeight(1);
+      line(x*CELL_SIZE, 0, x*CELL_SIZE, height);
     }
     for (int y = 1; y < GRID_WIDTH; y++) {
-      line(0, y*GRID_SIZE, width, y*GRID_SIZE);
+      stroke(0);
+      strokeWeight(1);
+      line(0, y*CELL_SIZE, width, y*CELL_SIZE);
     }
   }
 }

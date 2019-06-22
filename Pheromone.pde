@@ -2,8 +2,8 @@ class Pheromone {
   float x, y, size, hue, lifespan;
 
   Pheromone(float x, float y, float size, float lifespan) {
-    this.x = x+GRID_SIZE/2;
-    this.y = y+GRID_SIZE/2;
+    this.x = x+CELL_SIZE/2;
+    this.y = y+CELL_SIZE/2;
     this.size = size;
     this.lifespan = lifespan;
     hue = random(0, 255);
