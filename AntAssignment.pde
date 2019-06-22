@@ -1,21 +1,17 @@
-Ant ant;
-ArrayList<Food> food;
+Grid grid;
 
 void setup() {
-  fullScreen();
-  ant = new Ant(width/2, height/2, 30, 40);
-  food = new ArrayList<Food>();
+  //surface.setResizable(true);
+  surface.setSize(GRID_WIDTH*GRID_SIZE, GRID_HEIGHT*GRID_SIZE);
+  grid = new Grid();
+  grid.addRandomAnts(1);
 }
 
 void draw() {
   background(255);
-  for(Food food : food) {
-    food.display();
-  }
-  ant.display();
-  ant.applyForce(new PVector(0.05, 0.02));
+  grid.displayGrid();
+  grid.display();
 }
 
 void mousePressed() {
-  food.add(new Food(mouseX, mouseY));
 }

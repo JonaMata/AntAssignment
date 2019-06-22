@@ -14,7 +14,7 @@ class Animation {
       frame.resize(w, h);
     }
   }
-  
+
   void display(float x, float y, float r) {
     pushMatrix();
     translate(x, y);
@@ -26,11 +26,11 @@ class Animation {
   void play() {
     if (!isPaused) frameNumber = (frameNumber + 1) % count;
   } 
-  
+
   void playFor(int duration) {
-    if(!isPaused && frameNumber < duration) frameNumber = (frameNumber + 1) % count;
+    if (!isPaused && frameNumber < duration) frameNumber = (frameNumber + 1) % count;
   }
-  
+
 
   void togglePause(boolean pauseState) {
     isPaused = pauseState;
