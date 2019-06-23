@@ -1,17 +1,19 @@
 class Grid {
   ArrayList<Ant> ants;
   Cell[][] cells;
+  Nest nest;
 
   Grid() {
-    ants = new ArrayList<Ant>();
     cells = new Cell[GRID_WIDTH][GRID_HEIGHT];
     for (int i = 0; i < GRID_WIDTH; i++) {
       for (int j = 0; j < GRID_HEIGHT; j++) {
-        cells[i][j] = new Cell(i, j);
+        cells[i][j] = new Cell(i*CELL_SIZE, j*CELL_SIZE);
       }
     }
-  }
 
+    ants = new ArrayList<Ant>();
+    nest = new Nest(cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_WIDTH)]);
+  }
   void display() {
     for(Cell[] cellRow : cells) {
       for(Cell cell : cellRow) {
@@ -64,17 +66,26 @@ class Grid {
         }
       }
     }
-    //for (int i = 0; i < GRID_HEIGHT; i++) {
-    //  for (int j = 0; j < GRID_WIDTH; j++) {
-    //    cells[i][j].displayContent();
-    //  }
-    //}
+      }
+    }
+
+    nest.display();
   }
 
-  void addRandomAnts() {
-    Cell randomCell = cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_HEIGHT)];
-    PVector antPos = randomCell.getPos();
-    ants.add(new Ant(antPos.x, antPos.y, CELL_SIZE, CELL_SIZE, randomCell));
+  void addFoodCluster() {
+    for (int i = 0; i < GRID_HEIGHT; i++) {
+      for (int j = 0; j < GRID_WIDTH; j++) {
+        if(noise(i, j) > 0.8) {
+          cells[i][j].addFood();
+        }
+      }
+    }
+  }
+
+  void addAnts(int amount) {
+    for (int i = 0; i < amount; i++) {
+      ants.add(nest.spawnAnt());
+    }
   }
 
   void displayGrid() {
@@ -83,7 +94,8 @@ class Grid {
       strokeWeight(1);
       line(x*CELL_SIZE, 0, x*CELL_SIZE, height);
     }
-    for (int y = 1; y < GRID_WIDTH; y++) {
+
+    for (int y = 1; y < GRID_HEIGHT; y++) {
       stroke(0);
       strokeWeight(1);
       line(0, y*CELL_SIZE, width, y*CELL_SIZE);

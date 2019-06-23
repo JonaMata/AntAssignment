@@ -1,12 +1,13 @@
-class Animation {
+class Render {
   ArrayList<PImage> frames;
   int frameNumber, count;
   boolean isPaused;
 
-  Animation(String imageFolder, int count, int w, int h) {
+  Render(String imageFolder, int count, int w, int h, int startFrame) {
     frames = new ArrayList<PImage>();
     imageMode(CENTER);
     this.count = count;
+    this.frameNumber = startFrame;
     for (int i = 0; i < count; i++) {
       String filename = imageFolder + "/" + "frame_" + nf(i, 2) + ".png";
       frames.add(loadImage(filename));

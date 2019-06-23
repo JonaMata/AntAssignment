@@ -2,8 +2,8 @@ class Cell {
   int x, y;
   PVector pos;
 
-  Pheromone pheromone;
-  ArrayList<Food> foods;
+  ArrayList<Pheromone> pheromones;
+  ArrayList<Nutriment> nutrition;
 
   Cell (int x, int y) {
     this.x = x;
@@ -12,16 +12,10 @@ class Cell {
     this.pos = new PVector(x*CELL_SIZE,y*CELL_SIZE);
 
     this.pheromone = new Pheromone(pos.x, pos.y, 0, 1000);
-    this.foods = new ArrayList<Food>();
+    this.nutrition = new ArrayList<Nutriment>();
   }
 
   void update() {
-    //for(Pheromone pheromone : pheromones) {
-    //  pheromone.update();
-    //}
-    //for(Food food : foods) {
-    //  food.update();
-    //}
   }
   
   void display() {
@@ -59,14 +53,20 @@ class Cell {
     rect(pos.x,pos.y,CELL_SIZE,CELL_SIZE);
   }
 
-  void displayContent() {
+  void display() {
+    for (Pheromone pheromone : pheromones) {
       pheromone.display();
-    //for(Food food : foods) {
-    //  food.display();
-    //}
+    }
+    for(Nutriment nutriment : nutrition) {
+      nutriment.display();
+    }
   }
-  
-  void addFood(Food food) {
-    foods.add(food);
+
+  void addPheromone() {
+    pheromones.add(new Pheromone(x, y, CELL_SIZE/2, 1000));
+  }
+
+  void addFood() {
+    nutrition.add(new Nutriment(x, y, CELL_SIZE));
   }
 }

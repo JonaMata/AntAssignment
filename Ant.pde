@@ -1,18 +1,17 @@
 class Ant {
-  Animation animation;
+  Render animation;
   PVector pos, vel, acc;
   Cell dest;
   int[] heading;
 
   float maxSpeed = 1;
 
-  Ant(float x, float y, int w, int h, Cell cell) {
+  Ant(float x, float y, int size, Cell cell) {
     pos = new PVector(x, y);
     dest = cell;
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
-    animation = new Animation("Ant", 60, w, h);
-    //pheromones = new ArrayList<Pheromone>();
+    animation = new Render("Ant", 60, size, size+size/4);
     heading = new int[] {1, 0};
   }
 
