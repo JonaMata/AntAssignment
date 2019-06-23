@@ -14,7 +14,6 @@ class Nest {
   }
   
   Ant spawnAnt() {
-    println(x,y,cell.getPos());
     return new Ant(x, y, CELL_SIZE, cell);
   }
 }

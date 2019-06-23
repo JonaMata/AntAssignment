@@ -32,7 +32,6 @@ class Grid {
         for (int i = (heading[0]<1 ? -1 : 0); i < (heading[0]>-1 ? 2 : 1); i++) {
           for (int j = (heading[1]<1 ? -1 : 0); j < (heading[1]>-1 ? 2 : 1); j++) {
             if (!(i==0&&j==0) && cellPos[0]+i >= 0 && cellPos[0]+i < GRID_WIDTH && cellPos[1]+j >= 0 && cellPos[1]+j < GRID_HEIGHT) {
-              println(i, j);
               Cell cell = cells[cellPos[0]+i][cellPos[1]+j];
               cell.highlight();
               if (cell.hasFood()) {
@@ -45,14 +44,13 @@ class Grid {
             }
           }
         }
-        println(foodCells, pheromoneCells, emptyCells);
 
         if (foodCells.size() > 0) {
           ant.setDest(foodCells.get(0));
         } else if (pheromoneCells.size() > 0 && (random(0, 100)>EXPLORE_CHANCE || emptyCells.size() == 0)) {
           Cell chosenCell = null;
           for (Cell cell : pheromoneCells) {
-            if (chosenCell == null || cell.getPheromoneScore() > chosenCell.getPheromoneScore()) {
+            if (chosenCell == null || cell.getPheromoneValue() > chosenCell.getPheromoneValue()) {
               chosenCell = cell;
             }
             if (random(0, 100)<RANDOM_PHEROMONE_CHANCE) {
@@ -69,12 +67,12 @@ class Grid {
     nest.display();
   }
 
-  void addFoodClusters() {
+  void addNutrition() {
     for (int i = 0; i < GRID_HEIGHT; i++) {
       for (int j = 0; j < GRID_WIDTH; j++) {
         if (noise(i, j) > 0.8) {
-          int amount = (int) noise(i, j)*10;
-          cells[i][j].addFood(amount);
+          int amount = (int)random(0, 5);
+          cells[i][j].placeNutriment(amount);
         }
       }
     }

@@ -2,10 +2,9 @@ Grid grid;
 
 void setup() {
   surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
-  rectMode(CENTER);
   grid = new Grid();
   grid.addAnts(1);
-  grid.addFoodClusters();
+  grid.addNutrition();
 }
 
 void draw() {

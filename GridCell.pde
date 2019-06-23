@@ -3,7 +3,7 @@ class Cell {
   PVector pos;
 
   Pheromone pheromone;
-  ArrayList<Nutriment> nutrition;
+  Nutriment nutriment;
 
   Cell (int x, int y) {
     this.x = x;
@@ -12,7 +12,7 @@ class Cell {
     this.pos = new PVector(x*CELL_SIZE, y*CELL_SIZE);
 
     this.pheromone = new Pheromone(pos.x, pos.y, 0, 1000);
-    this.nutrition = new ArrayList<Nutriment>();
+    this.nutriment = new Nutriment(pos.x, pos.y, 0);
   }
 
   PVector getPos() {
@@ -25,14 +25,18 @@ class Cell {
 
 
   boolean hasFood() {
-    return nutrition.size()>0;
+    return nutriment != null;
   }
 
   boolean hasPheromone() {
     return pheromone.isThere();
   }
+  
+  float getNutrimentValue() {
+    return nutriment.getSize();
+  }
 
-  float getPheromoneScore() {
+  float getPheromoneValue() {
     return pheromone.getSize();
   }
 
@@ -48,14 +52,10 @@ class Cell {
 
   void display() {
     pheromone.display();
-    for (Nutriment nutriment : nutrition) {
-      nutriment.display();
-    }
+    nutriment.display();
   }
 
-  void addFood(int amount) {
-    for (int i = 0; i < amount; i++) {
-      nutrition.add(new Nutriment(x, y, CELL_SIZE));
-    }
+  void placeNutriment(int amount) {
+    nutriment.addNutriment(amount);
   }
 }

@@ -32,8 +32,4 @@ class Pheromone {
   float getSize() {
     return size;
   }
-
-  boolean isFaded() {
-    return lifespan < 1;
-  }
 }
