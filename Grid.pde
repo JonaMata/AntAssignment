@@ -20,7 +20,11 @@ class Grid {
         cell.display();
       }
     }
-
+    antAlgorithm();
+    nest.display();
+  }
+  
+  void antAlgorithm() {
     for (Ant ant : ants) {
       ant.display();
       if (ant.canSearch()) {
@@ -29,6 +33,7 @@ class Grid {
         ArrayList<Cell> emptyCells = new ArrayList<Cell>();
         ArrayList<Cell> pheromoneCells = new ArrayList<Cell>();
         ArrayList<Cell> foodCells = new ArrayList<Cell>();
+        
         for (int i = (heading[0]<1 ? -1 : 0); i < (heading[0]>-1 ? 2 : 1); i++) {
           for (int j = (heading[1]<1 ? -1 : 0); j < (heading[1]>-1 ? 2 : 1); j++) {
             if (!(i==0&&j==0) && cellPos[0]+i >= 0 && cellPos[0]+i < GRID_WIDTH && cellPos[1]+j >= 0 && cellPos[1]+j < GRID_HEIGHT) {
@@ -47,6 +52,7 @@ class Grid {
 
         if (foodCells.size() > 0) {
           ant.setDest(foodCells.get(0));
+          ant.grabNutriment(foodCells.get(0));
         } else if (pheromoneCells.size() > 0 && (random(0, 100)>EXPLORE_CHANCE || emptyCells.size() == 0)) {
           Cell chosenCell = null;
           for (Cell cell : pheromoneCells) {
@@ -64,14 +70,13 @@ class Grid {
         }
       }
     }
-    nest.display();
   }
 
-  void addNutrition() {
+  void addNutrition(float chance) {
     for (int i = 0; i < GRID_HEIGHT; i++) {
       for (int j = 0; j < GRID_WIDTH; j++) {
-        if (noise(i, j) > 0.8) {
-          int amount = (int)random(0, 5);
+        if (noise(i, j) > chance) {
+          int amount = (int)random(0, 2);
           cells[i][j].placeNutriment(amount);
         }
       }

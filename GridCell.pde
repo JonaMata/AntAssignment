@@ -11,7 +11,7 @@ class Cell {
 
     this.pos = new PVector(x*CELL_SIZE, y*CELL_SIZE);
 
-    this.pheromone = new Pheromone(pos.x, pos.y, 0, 1000);
+    this.pheromone = new Pheromone(pos.x, pos.y, 0);
     this.nutriment = new Nutriment(pos.x, pos.y, 0);
   }
 
@@ -25,7 +25,7 @@ class Cell {
 
 
   boolean hasFood() {
-    return nutriment != null;
+    return nutriment.isThere();
   }
 
   boolean hasPheromone() {
@@ -43,6 +43,14 @@ class Cell {
   void placePheromone() {
     pheromone.addPheromone();
   }
+  
+  void placeNutriment(int amount) {
+    nutriment.addNutriment(amount);
+  }
+  
+  void takeNutriment() {
+    nutriment.removeNutriment();
+  }
 
   void highlight() {
     colorMode(RGB);
@@ -53,9 +61,5 @@ class Cell {
   void display() {
     pheromone.display();
     nutriment.display();
-  }
-
-  void placeNutriment(int amount) {
-    nutriment.addNutriment(amount);
   }
 }
