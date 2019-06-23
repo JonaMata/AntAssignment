@@ -10,30 +10,42 @@ class Grid {
         cells[i][j] = new Cell(i*CELL_SIZE, j*CELL_SIZE);
       }
     }
+
     ants = new ArrayList<Ant>();
     nest = new Nest(cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_WIDTH)]);
   }
-
   void display() {
-    for (int i = 0; i < GRID_HEIGHT; i++) {
-      for (int j = 0; j < GRID_WIDTH; j++) {
+    for (int i = 0; i < GRID_WIDTH; i++) {
+      for (int j = 0; j < GRID_HEIGHT; j++) {
         cells[i][j].display();
       }
     }
+
     for (Ant ant : ants) {
       ant.display();
       if (ant.canSearch()) {
         Cell currentCell = ant.getCell(cells);
-        currentCell.addPheromone();
         int[] destPos = {
           constrain(currentCell.x/CELL_SIZE+(int)random(-1, 2), 0, GRID_WIDTH), 
           constrain(currentCell.y/CELL_SIZE+(int)random(-1, 2), 0, GRID_HEIGHT)
         };
+        currentCell.addPheromone();
         Cell newDest = cells[destPos[0]][destPos[1]];
         ant.setDest(newDest);
       }
     }
+
     nest.display();
+  }
+
+  void addFoodCluster() {
+    for (int i = 0; i < GRID_HEIGHT; i++) {
+      for (int j = 0; j < GRID_WIDTH; j++) {
+        if(noise(i, j) > 0.8) {
+          cells[i][j].addFood();
+        }
+      }
+    }
   }
 
   void addAnts(int amount) {

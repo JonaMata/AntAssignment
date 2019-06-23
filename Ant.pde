@@ -9,7 +9,7 @@ class Ant {
     dest = pos.copy();
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
-    animation = new Render("Ant", 60, size, size+size/4);
+    animation = new Render("Ant", 60, size, size+size/4, 0);
   }
 
   void display() {

@@ -5,6 +5,7 @@ void setup() {
   rectMode(CENTER);
   grid = new Grid();
   grid.addAnts(1);
+  grid.addFoodCluster();
 }
 
 void draw() {
