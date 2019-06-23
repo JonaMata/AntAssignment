@@ -4,8 +4,8 @@ class Nest {
   
   Nest(Cell cell) {
     this.cell = cell;
-    this.x = cell.x+CELL_SIZE/2;
-    this.y = cell.y+CELL_SIZE/2;
+    this.x = cell.x*CELL_SIZE+CELL_SIZE/2;
+    this.y = cell.y*CELL_SIZE+CELL_SIZE/2;
   }
 
   void display() {
@@ -14,6 +14,7 @@ class Nest {
   }
   
   Ant spawnAnt() {
+    println(x,y,cell.getPos());
     return new Ant(x, y, CELL_SIZE, cell);
   }
 }
