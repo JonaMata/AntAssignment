@@ -11,14 +11,22 @@ class Pheromone {
   }
 
   void display() {
+    pushMatrix();
+    translate(x,y);
     noStroke();
+    colorMode(HSB);
     fill(hue, 255, 255, lifespan);
-    ellipse(x, y, size, size);
-    lifespan *= exp(-0.05);
+    ellipse(0, 0, size*CELL_SIZE/2, size*CELL_SIZE/2);
+    popMatrix();
+    size *= exp(-0.001);
+  }
+  
+  void addPheromone() {
+    size++;
   }
   
   boolean isThere() {
-    return size > 0;
+    return size > 0.1;
   }
   
   float getSize() {
@@ -26,6 +34,6 @@ class Pheromone {
   }
 
   boolean isFaded() {
-    return lifespan < 1 ? true : false;
+    return lifespan < 1;
   }
 }

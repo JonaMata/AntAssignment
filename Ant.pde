@@ -6,9 +6,9 @@ class Ant {
 
   float maxSpeed = 1;
 
-  Ant(float x, float y, int w, int h) {
+  Ant(float x, float y, int w, int h, Cell cell) {
     pos = new PVector(x, y);
-    dest = null;
+    dest = cell;
     vel = new PVector(0, 0);
     acc = new PVector(0, 0);
     animation = new Animation("Ant", 60, w, h);
@@ -23,14 +23,20 @@ class Ant {
   }
 
   void setDest(Cell cell) {
+    if(dest != null) dest.placePheromone();
     int[] cellPos = getCellPos();
     int[] destPos = cell.getGridPos();
-    heading = new int[] {cellPos[0]-destPos[0], cellPos[1]-destPos[1]};
+    heading = new int[] {destPos[0]-cellPos[0], destPos[1]-cellPos[1]};
     this.dest = cell;
   }
 
   int[] getCellPos() {
     return new int[]{(int)pos.x/CELL_SIZE, (int)pos.y/CELL_SIZE};
+  }
+  
+  int[] getSearchPos() {
+    if(dest==null) return getCellPos();
+    return dest.getGridPos();
   }
 
   int[] getHeading() {
@@ -46,6 +52,7 @@ class Ant {
       pos.add(vel);
       acc.mult(0);
     }
+    if (canSearch()) pos = dest.getPos().copy();
   }
 
 

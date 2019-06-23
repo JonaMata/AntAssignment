@@ -11,7 +11,7 @@ class Cell {
     
     this.pos = new PVector(x*CELL_SIZE,y*CELL_SIZE);
 
-    this.pheromone = new Pheromone(x, y, CELL_SIZE/2, 1000);
+    this.pheromone = new Pheromone(pos.x, pos.y, 0, 1000);
     this.foods = new ArrayList<Food>();
   }
 
@@ -24,6 +24,10 @@ class Cell {
     //}
   }
   
+  void display() {
+    pheromone.display();
+  }
+  
   PVector getPos() {
     return pos;
   }
@@ -31,6 +35,7 @@ class Cell {
   int[] getGridPos() {
     return new int[] {x,y};
   }
+  
   
   boolean hasFood() {
     return foods.size()>0;
@@ -42,6 +47,16 @@ class Cell {
   
   float getPheromoneScore() {
     return pheromone.getSize();
+  }
+  
+  void placePheromone() {
+    pheromone.addPheromone();
+  }
+  
+  void highlight() {
+    colorMode(RGB);
+    fill(0,255,0);
+    rect(pos.x,pos.y,CELL_SIZE,CELL_SIZE);
   }
 
   void displayContent() {

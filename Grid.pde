@@ -13,10 +13,16 @@ class Grid {
   }
 
   void display() {
+    for(Cell[] cellRow : cells) {
+      for(Cell cell : cellRow) {
+        cell.display();
+      }
+    }
+    
     for(Ant ant : ants) {
       ant.display();
       if(ant.canSearch()) {
-        int[] cellPos = ant.getCellPos();
+        int[] cellPos = ant.getSearchPos();
         int[] heading = ant.getHeading();
         ArrayList<Cell> emptyCells = new ArrayList<Cell>();
         ArrayList<Cell> pheromoneCells = new ArrayList<Cell>();
@@ -26,6 +32,7 @@ class Grid {
             if(!(i==0&&j==0) && cellPos[0]+i >= 0 && cellPos[0]+i < GRID_WIDTH && cellPos[1]+j >= 0 && cellPos[1]+j < GRID_HEIGHT) {
               println(i,j);
               Cell cell = cells[cellPos[0]+i][cellPos[1]+j];
+              cell.highlight();
               if(cell.hasFood()) {
                 foodCells.add(cell);
               } else if(cell.hasPheromone()) {
@@ -40,7 +47,7 @@ class Grid {
         
         if(foodCells.size() > 0) {
           ant.setDest(foodCells.get(0));
-        } else if(pheromoneCells.size() > 0 && (random(0,100)<EXPLORE_CHANCE || emptyCells.size() == 0)) {
+        } else if(pheromoneCells.size() > 0 && (random(0,100)>EXPLORE_CHANCE || emptyCells.size() == 0)) {
           Cell chosenCell = null;
           for(Cell cell : pheromoneCells) {
             if(chosenCell == null || cell.getPheromoneScore() > chosenCell.getPheromoneScore()) {
@@ -52,7 +59,7 @@ class Grid {
             }
           }
           if(chosenCell != null) ant.setDest(chosenCell);
-        } else {
+        } else if(emptyCells.size() > 0) {
           ant.setDest(emptyCells.get(floor(random(0,emptyCells.size()))));
         }
       }
@@ -66,7 +73,8 @@ class Grid {
 
   void addRandomAnts() {
     Cell randomCell = cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_HEIGHT)];
-    ants.add(new Ant(randomCell.x, randomCell.y, CELL_SIZE, CELL_SIZE));
+    PVector antPos = randomCell.getPos();
+    ants.add(new Ant(antPos.x, antPos.y, CELL_SIZE, CELL_SIZE, randomCell));
   }
 
   void displayGrid() {
