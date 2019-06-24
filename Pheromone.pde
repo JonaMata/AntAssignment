@@ -15,7 +15,7 @@ class Pheromone {
     translate(x, y);
     noStroke();
     colorMode(HSB);
-    fill(hue, 255, 255);
+    fill(hue, 255, 255, 100);
     ellipse(0, 0, size*CELL_SIZE/2, size*CELL_SIZE/2);
     popMatrix();
     size *= exp(-0.001);

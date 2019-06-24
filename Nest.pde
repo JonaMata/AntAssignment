@@ -1,10 +1,8 @@
 class Nest {
   PVector pos;
-  Cell cell;
   
-  Nest(Cell cell) {
-    this.cell = cell;
-    this.pos = new PVector(cell.x*CELL_SIZE+CELL_SIZE/2, cell.y*CELL_SIZE+CELL_SIZE/2);
+  Nest(float x, float y) {
+    pos = new PVector(x, y);
   }
 
   void display() {

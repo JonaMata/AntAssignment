@@ -10,7 +10,7 @@ class Nutriment {
 
   void display() {
     colorMode(RGB);
-    fill(255, 0, 0, 150);
+    fill(255, 0, 0);
     ellipse(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2, size*CELL_SIZE/2, size*CELL_SIZE/2);
   }
   

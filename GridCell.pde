@@ -4,34 +4,33 @@ class Cell {
 
   Pheromone pheromone;
   Nutriment nutriment;
+  Nest nest;
 
   Cell (int x, int y) {
     this.x = x;
     this.y = y;
-
     this.pos = new PVector(x*CELL_SIZE, y*CELL_SIZE);
-
     this.pheromone = new Pheromone(pos.x, pos.y, 0);
     this.nutriment = new Nutriment(pos.x, pos.y, 0);
+    this.nest = null;
   }
 
   PVector getPos() {
     return pos;
   }
 
-  int[] getGridPos() {
+  int[] getCellIndex() {
     return new int[] {x, y};
   }
 
-
-  boolean hasFood() {
+  boolean hasNutriment() {
     return nutriment.isThere();
   }
 
   boolean hasPheromone() {
     return pheromone.isThere();
   }
-  
+
   float getNutrimentValue() {
     return nutriment.getSize();
   }
@@ -43,18 +42,26 @@ class Cell {
   void placePheromone() {
     pheromone.addPheromone();
   }
-  
+
   void placeNutriment(int amount) {
     nutriment.addNutriment(amount);
   }
-  
+
   void takeNutriment() {
     nutriment.removeNutriment();
   }
 
+  void addNest() {
+    nest = new Nest();
+  }
+
+  boolean hasNest() {
+    return nest != null;
+  }
+
   void highlight() {
     colorMode(RGB);
-    fill(0, 255, 0);
+    fill(0, 255, 0, 50);
     rect(pos.x, pos.y, CELL_SIZE, CELL_SIZE);
   }
 

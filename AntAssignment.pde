@@ -9,14 +9,12 @@ void setup() {
   surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
   grid = new Grid();
   grid.addAnts(ANTS);
-  grid.addNutrition(NUTRITION_CHANCE);
+  grid.addNutrition();
 }
 
 void draw() {
   background(255);
   grid.displayGrid();
   grid.display();
-}
-
-void mousePressed() {
+  grid.update();
 }
