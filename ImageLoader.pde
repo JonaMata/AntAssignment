@@ -1,18 +1,18 @@
 class ImageLoader {
   String[] directories;
-  
+
   ImageLoader() {
     directories = listFileNames(sketchPath() + "/data");
-      for (String dir : directories) {
-        ArrayList<Animation> animations = new ArrayList<Animation>(directories.length);
-        String[] files = listFileNames(sketchPath() + "/data/" + dir);
-        ArrayList<PImage> images = new ArrayList<PImage>(files.length);
-        for (String file : files) {
-          images.add(loadImage(sketchPath() + "/data/" + dir + "/" + file));
-          animations.add(new Animation(images));
-        }
+    for (String dir : directories) {
+      ArrayList<Animation> animations = new ArrayList<Animation>(directories.length);
+      String[] files = listFileNames(sketchPath() + "/data/" + dir);
+      ArrayList<String> images = new ArrayList<String>(files.length);
+      for (String file : files) {
+        images.add(file);
+        animations.add(new Animation(dir, images));
       }
-    
+    }
+
     if (DEBUG) {
       directories = listFileNames(sketchPath() + "/data");
       for (String dir : directories) {
@@ -38,12 +38,12 @@ class ImageLoader {
   }
 }
 
-class Animation extends ImageLoader{
+class Animation extends ImageLoader {
   ArrayList<PImage> images;
-  
-  Animation(ArrayList<PImage> images) {
-    this.images = images;
+
+  Animation(String dir, ArrayList<String> images) {
+    for (String file : images) {
+      this.images.add(loadImage(sketchPath() + "/data/" + dir + "/" + file));
+    }
   }
-  
-  
 }
