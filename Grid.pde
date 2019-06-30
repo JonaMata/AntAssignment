@@ -1,7 +1,6 @@
 class Grid {
   ArrayList<Ant> ants;
   Cell[][] cells;
-  Nest nest;
 
   Grid() {
     cells = new Cell[GRID_WIDTH][GRID_HEIGHT];
@@ -10,7 +9,6 @@ class Grid {
         cells[i][j] = new Cell(i, j);
       }
     }
-    cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_WIDTH)].addNest();
     ants = new ArrayList<Ant>();
   }
 
@@ -23,7 +21,6 @@ class Grid {
     for (Ant ant : ants) {
       ant.display();
     }
-    nest.display();
   }
 
   void update() {
@@ -33,7 +30,7 @@ class Grid {
     }
   }
 
-  void addNutrition() {
+  void placeRandomNutrition() {
     for (int i = 0; i < GRID_HEIGHT; i++) {
       for (int j = 0; j < GRID_WIDTH; j++) {
         if (noise(i, j) < NUTRITION_CHANCE) {
@@ -44,10 +41,12 @@ class Grid {
     }
   }
 
-  void addAnts(int amount) {
-    for (int i = 0; i < amount; i++) {
-      ants.add(nest.spawnAnt());
-    }
+  Cell getRandomCell() {
+    return cells[(int)random(0, GRID_WIDTH)][(int)random(0, GRID_WIDTH)];
+  }
+
+  PVector getRandomPos() {
+    return getRandomCell().getPos();
   }
 
   void displayGrid() {

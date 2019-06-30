@@ -10,7 +10,7 @@ class Cell {
     this.x = x;
     this.y = y;
     this.pos = new PVector(x*CELL_SIZE, y*CELL_SIZE);
-    this.pheromone = new Pheromone(pos.x, pos.y, 0);
+    this.pheromone = new Pheromone(pos, 0);
     this.nutriment = new Nutriment(pos.x, pos.y, 0);
     this.nest = null;
   }
@@ -52,7 +52,7 @@ class Cell {
   }
 
   void addNest() {
-    nest = new Nest();
+    nest = new Nest(pos.copy());
   }
 
   boolean hasNest() {
@@ -66,7 +66,8 @@ class Cell {
   }
 
   void display() {
-    pheromone.display();
+    pheromone.run();
     nutriment.display();
+    if (nest != null) nest.display();
   }
 }

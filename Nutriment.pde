@@ -11,11 +11,12 @@ class Nutriment {
   void display() {
     colorMode(RGB);
     fill(255, 0, 0);
+    noStroke();
     ellipse(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2, size*CELL_SIZE/2, size*CELL_SIZE/2);
   }
   
-  void move(float x, float y) {
-    pos = new PVector(x, y);
+  void move(PVector pos) {
+    this.pos = pos.copy();
   }
   
   void addNutriment(int amount) {

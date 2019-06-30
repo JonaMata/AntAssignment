@@ -1,8 +1,8 @@
 class Nest {
   PVector pos;
   
-  Nest(float x, float y) {
-    pos = new PVector(x, y);
+  Nest(PVector pos) {
+    this.pos = new PVector(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2);
   }
 
   void display() {
@@ -11,6 +11,6 @@ class Nest {
   }
   
   Ant spawnAnt() {
-    return new Ant(pos.x, pos.y, CELL_SIZE, cell);
+    return new Ant(pos.copy(), CELL_SIZE);
   }
 }

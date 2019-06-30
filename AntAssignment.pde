@@ -3,18 +3,16 @@
  By Jesse Visser & Jonathan Matarazzi
 */
 
-Grid grid;
+WorldManager worldManager;
+ImageLoader imageLoader;
 
 void setup() {
   surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
-  grid = new Grid();
-  grid.addAnts(ANTS);
-  grid.addNutrition();
+  worldManager = new WorldManager();
+  imageLoader = new ImageLoader();
 }
 
 void draw() {
   background(255);
-  grid.displayGrid();
-  grid.display();
-  grid.update();
+  worldManager.run();
 }

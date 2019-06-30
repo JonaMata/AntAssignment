@@ -1,37 +1,34 @@
 class Pheromone {
-  float x, y, hue, size, maxSize;
+  float hue, value, maxValue;
+  PVector origin;
+  ParticleSystem pheromones;
   
-  Pheromone(float x, float y, int size) {
-    this.x = x+CELL_SIZE/2;
-    this.y = y+CELL_SIZE/2;
-    this.size = size;
-    this.maxSize = 2;
-    hue = random(0, 255);
-    colorMode(HSB);
+  Pheromone(PVector pos, float value) {
+    this.hue = 80;
+    this.origin = new PVector(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2);
+    this.pheromones = new ParticleSystem(origin, hue);
+    this.value = value;
+    this.maxValue = 2;
   }
 
-  void display() {
-    pushMatrix();
-    translate(x, y);
-    noStroke();
-    colorMode(HSB);
-    fill(hue, 255, 255, 100);
-    ellipse(0, 0, size*CELL_SIZE/2, size*CELL_SIZE/2);
-    popMatrix();
-    size *= exp(-0.001);
+  void run() {
+    if (isThere()) {
+      pheromones.run(value);
+      value -= PHEROMONE_DECAY;
+    }
   }
 
   void addPheromone() {
-    if (size+0.5 < maxSize) {
-      size += 0.5;
+    if (value < maxValue) {
+      value += 1;
     }
   }
 
   boolean isThere() {
-    return size > 0.1;
+    return value > 0.1;
   }
 
   float getSize() {
-    return size;
+    return value;
   }
 }
