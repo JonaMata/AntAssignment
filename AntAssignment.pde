@@ -1,21 +1,18 @@
-Ant ant;
-ArrayList<Food> food;
+/*
+ Ant algorithm based on realistic ant movement.
+ By Jesse Visser & Jonathan Matarazzi
+*/
+
+WorldManager worldManager;
+ImageLoader imageLoader;
 
 void setup() {
-  fullScreen();
-  ant = new Ant(width/2, height/2, 30, 40);
-  food = new ArrayList<Food>();
+  surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
+  imageLoader = new ImageLoader();
+  worldManager = new WorldManager();
 }
 
 void draw() {
   background(255);
-  for(Food food : food) {
-    food.display();
-  }
-  ant.display();
-  ant.applyForce(new PVector(0.05, 0.02));
-}
-
-void mousePressed() {
-  food.add(new Food(mouseX, mouseY));
+  worldManager.run();
 }

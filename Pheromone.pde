@@ -1,23 +1,34 @@
 class Pheromone {
-  float x, y, size, hue, lifespan;
-
-  Pheromone(float x, float y, float size, float lifespan) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.lifespan = lifespan;
-    hue = random(0, 255);
-    colorMode(HSB);
-    noStroke();
+  float hue, value, maxValue;
+  PVector origin;
+  ParticleSystem pheromones;
+  
+  Pheromone(PVector pos, float value) {
+    this.hue = 80;
+    this.origin = new PVector(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2);
+    this.pheromones = new ParticleSystem(origin, hue);
+    this.value = value;
+    this.maxValue = 2;
   }
 
-  void display() {
-    fill(hue, 255, 255, lifespan);
-    ellipse(x, y, size, size);
-    lifespan *= exp(-0.05);
+  void run() {
+    if (isThere()) {
+      pheromones.run(value);
+      value -= PHEROMONE_DECAY;
+    }
   }
 
-  boolean isFaded() {
-    return lifespan < 1 ? true : false;
+  void addPheromone() {
+    if (value < maxValue) {
+      value += 1;
+    }
+  }
+
+  boolean isThere() {
+    return value > 0.1;
+  }
+
+  float getSize() {
+    return value;
   }
 }
