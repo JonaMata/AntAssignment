@@ -12,7 +12,7 @@ class Ant {
     this.vel = new PVector(0, 0);
     this.acc = new PVector(0, 0);
     this.maxSpeed = 1;
-    this.animation = new Render("Ant", 60, size, size+size/4, 0);
+    this.animation = new Render(0, 60, size, size+size/4, 0);
     this.heading = new int[] {1, 0};
     this.nutriment = new Nutriment(pos.x, pos.y, 1);
   }

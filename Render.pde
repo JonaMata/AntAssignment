@@ -3,15 +3,13 @@ class Render {
   int frameNumber, count;
   boolean isPaused;
 
-  Render(String imageFolder, int count, int w, int h, int startFrame) {
+  Render(int i, int count, int w, int h, int startFrame) {
     frames = new ArrayList<PImage>();
     imageMode(CENTER);
     this.count = count;
     this.frameNumber = startFrame;
-    for (int i = 0; i < count; i++) {
-      String filename = imageFolder + "/" + "frame_" + nf(i, 2) + ".png";
-      frames.add(loadImage(filename));
-      PImage frame = frames.get(i);
+    frames = imageLoader.getAnimation(i);
+    for (PImage frame : frames) {
       frame.resize(w, h);
     }
   }

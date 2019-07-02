@@ -21,8 +21,6 @@ class WorldManager {
       ant.move(grid.cells);
     }
   }
-  
-  
 
   void addAnts(int amount) {
     for (int i = 0; i < amount; i++) {

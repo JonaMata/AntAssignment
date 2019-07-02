@@ -1,49 +1,41 @@
 class ImageLoader {
-  String[] directories;
+  ArrayList<ArrayList<PImage>> animations = new ArrayList<ArrayList<PImage>>();
 
   ImageLoader() {
-    directories = listFileNames(sketchPath() + "/data");
-    for (String dir : directories) {
-      ArrayList<Animation> animations = new ArrayList<Animation>(directories.length);
-      String[] files = listFileNames(sketchPath() + "/data/" + dir);
-      ArrayList<String> images = new ArrayList<String>(files.length);
+    String[] directories = listFileNames(sketchPath() + "/data");
+    for (int i = 0; i < directories.length; i++) {
+      String[] files = listFileNames(sketchPath() + "/data/" + directories[i]);
+      ArrayList<PImage> images = new ArrayList<PImage>();
       for (String file : files) {
-        images.add(file);
-        animations.add(new Animation(dir, images));
+        images.add(loadImage(sketchPath() + "/data/" + directories[i] + "/" + file));
       }
+      animations.add(images);
     }
 
     if (DEBUG) {
       directories = listFileNames(sketchPath() + "/data");
-      for (String dir : directories) {
-        println(dir);
-        String[] files = listFileNames(sketchPath() + "/data/" + dir);
+      for (int i = 0; i < directories.length; i++) {
+        println(directories[i]);
+        String[] files = listFileNames(sketchPath() + "/data/" + directories[i]);
         for (String file : files) {
           println("  " + file);
         }
       }
     }
   }
+  
+  ArrayList<PImage> getAnimation(int index) {
+    return animations.get(index);
+  }
 
   String[] listFileNames(String dir) {
     File file = new File(dir); 
     if (file.isDirectory()) {
-      String names[] = file.list(); 
-      return names;
+      String files[] = file.list(); 
+      return files;
     } else {
-      // If it's not a directory
-      String error[] = {"not a directory"}; 
-      return error;
-    }
-  }
-}
-
-class Animation extends ImageLoader {
-  ArrayList<PImage> images;
-
-  Animation(String dir, ArrayList<String> images) {
-    for (String file : images) {
-      this.images.add(loadImage(sketchPath() + "/data/" + dir + "/" + file));
+      String errors[] = {"not a directory"};
+      return errors;
     }
   }
 }

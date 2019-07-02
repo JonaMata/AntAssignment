@@ -8,8 +8,8 @@ ImageLoader imageLoader;
 
 void setup() {
   surface.setSize(GRID_WIDTH*CELL_SIZE, GRID_HEIGHT*CELL_SIZE);
-  worldManager = new WorldManager();
   imageLoader = new ImageLoader();
+  worldManager = new WorldManager();
 }
 
 void draw() {
