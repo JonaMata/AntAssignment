@@ -33,7 +33,7 @@ class WorldManager {
     }
   }
   
-  void mouseClick(int clickX, int clickY) {
-    grid.mouseClick(clickX, clickY);
+  void mouseClick(int clickX, int clickY, int button) {
+    grid.mouseClick(clickX, clickY, button);
   }
 }
