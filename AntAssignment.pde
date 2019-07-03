@@ -22,5 +22,5 @@ void draw() {
 }
 
 void mousePressed() {
-  worldManager.mouseClick(mouseX, mouseY);
+  worldManager.mouseClick(mouseX, mouseY, mouseButton);
 }

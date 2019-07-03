@@ -92,8 +92,13 @@ class Grid {
     }
   }
 
-  void mouseClick(int clickX, int clickY) {
+  void mouseClick(int clickX, int clickY, int button) {
     int[] cellIndex = {(int)clickX/CELL_SIZE, (int)clickY/CELL_SIZE};
-    cells[cellIndex[0]][cellIndex[1]].toggleObstacle();
+    Cell cell = cells[cellIndex[0]][cellIndex[1]];
+    if (button == LEFT) {
+      cell.toggleObstacle();
+    } else if (button == RIGHT) {
+      cell.placeNutriment(1);
+    }
   }
 }
