@@ -10,7 +10,7 @@ class Cell {
     this.x = x;
     this.y = y;
     this.pos = new PVector(x*CELL_SIZE, y*CELL_SIZE);
-    this.pheromone = new Pheromone(pos, 0);
+    this.pheromone = null;
     this.nutriment = null;
   }
 
@@ -28,32 +28,30 @@ class Cell {
   }
 
   boolean hasPheromone() {
-    return pheromone.isThere();
-  }
-
-  float getNutrimentValue() {
-    return nutriment.getSize();
+    if (pheromone != null) return pheromone.isThere();
+    else return false;
   }
 
   float getPheromoneValue() {
-    return pheromone.getSize();
+    if(pheromone != null) return pheromone.getValue();
+    else return 0;
   }
 
   void placePheromone() {
-    pheromone.addPheromone();
+    if (pheromone != null) pheromone.addPheromone();
+    else pheromone = new Pheromone(pos, 1);
   }
 
   void placeNutriment(int amount) {
-    if (nutriment != null) {
-      nutriment.addNutriment(amount);
-    } else {
-      nutriment = new Nutriment(pos, amount);
-    }
+    if (nutriment != null) nutriment.addNutriment(amount);
+    else nutriment = new Nutriment(pos, amount);
   }
 
   void takeNutriment() {
-    if (nutriment != null) nutriment.removeNutriment();
-    if (nutriment.value < 1) nutriment = null;
+    if (nutriment != null) {
+      nutriment.removeNutriment();
+      if (!nutriment.isThere()) nutriment = null;
+    }
   }
 
   void highlight() {
@@ -63,7 +61,7 @@ class Cell {
   }
 
   void display() {
-    pheromone.run();
+    if (pheromone != null) pheromone.run();
     if (nutriment != null) nutriment.display();
     if (obstacle) {
       fill(255, 0, 0);
@@ -72,7 +70,7 @@ class Cell {
   }
 
   void toggleObstacle() {
-    obstacle=!obstacle;
+    obstacle = !obstacle;
   }
 
   boolean hasObstacle() {

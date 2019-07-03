@@ -7,7 +7,7 @@ class Ant {
   PVector pos, vel, acc, nestPos;
   boolean hasNutriment;
   float maxSpeed;
-  
+
   Nest nest;
 
   Ant(PVector pos, int size, Nest nest) {
@@ -23,25 +23,24 @@ class Ant {
   }
 
   void display() {
-    render.display(pos.x, pos.y, vel.heading());
-    render.play();
+    render.play(pos.x, pos.y, vel.heading());
 
     if (hasNutriment) {
-      nutriment.move(pos);
       nutriment.display();
     }
   }
 
   void update() {
-
-    if (hasNutriment && dist(pos.x, pos.y, nestPos.x, nestPos.y)<CELL_SIZE) {
-      atNest();
+    if (hasNutriment) {
+      nutriment.move(pos);
+      if (dist(pos.x, pos.y, nestPos.x, nestPos.y) < CELL_SIZE) {
+        atNest();
+      }
     }
-
 
     if (dest != null) {
       PVector destPos = dest.getPos();
-      if (dest.hasNutriment() &&  dist(pos.x, pos.y, destPos.x, destPos.y)<CELL_SIZE) {
+      if (dest.hasNutriment() &&  dist(pos.x, pos.y, destPos.x, destPos.y) < CELL_SIZE) {
         grabNutriment(dest);
       }
 

@@ -8,3 +8,4 @@ final static float NUTRITION_CHANCE = 0.2;
 final static float PHEROMONE_DECAY = 0.001;
 
 final static boolean DEBUG = true;
+final static boolean BACKGROUND = false;

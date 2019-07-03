@@ -1,5 +1,5 @@
 /*
- Ant algorithm based on realistic ant movement.
+ Ant algorithm based on realistic ant movement using pheromones.
  By Jesse Visser & Jonathan Matarazzi
 */
 
@@ -16,8 +16,7 @@ void setup() {
 
 void draw() {
   background(255);
-  grassBackground.update();
-  grassBackground.display();
+  if(BACKGROUND) grassBackground.run();
   worldManager.run();
 }
 

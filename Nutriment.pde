@@ -18,7 +18,7 @@ class Nutriment {
   }
   
   void addNutriment(int amount) {
-    value += amount;
+    value += constrain(amount, 0, 5-value);
   }
   
   void removeNutriment() {
