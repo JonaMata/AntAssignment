@@ -42,9 +42,9 @@ class Grid {
 
   ArrayList<Cell> getSight(int[] pos, int[] heading) {
     ArrayList<Cell> sightCells = new ArrayList<Cell>();
-    
+
     int[] usedHeading = new int[2];
-    
+
     arrayCopy(heading, usedHeading);
     while (sightCells.size() < 1) {
       if (usedHeading[0]*usedHeading[1]!=0) {
@@ -52,8 +52,10 @@ class Grid {
           for (int j = (usedHeading[1]<1 ? -1 : 0); j < (usedHeading[1]>-1 ? 2 : 1); j++) {
             if (!(i==0&&j==0) && pos[0]+i >= 0 && pos[0]+i < GRID_WIDTH && pos[1]+j >= 0 && pos[1]+j < GRID_HEIGHT) {
               Cell cell = cells[(int)pos[0]+i][(int)pos[1]+j];
-              sightCells.add(cell);
-              if (DEBUG) cell.highlight();
+              if (!cell.hasObstacle()) {
+                sightCells.add(cell);
+                if (DEBUG) cell.highlight();
+              }
             }
           }
         }
@@ -62,14 +64,16 @@ class Grid {
           for (int j = (usedHeading[1]<1 ? -1 : 1); j < (usedHeading[1]>-1 ? 2 : 0); j++) {
             if (!(i==0&&j==0) && pos[0]+i >= 0 && pos[0]+i < GRID_WIDTH && pos[1]+j >= 0 && pos[1]+j < GRID_HEIGHT) {
               Cell cell = cells[(int)pos[0]+i][(int)pos[1]+j];
-              sightCells.add(cell);
-              if (DEBUG) cell.highlight();
+              if (!cell.hasObstacle()) {
+                sightCells.add(cell);
+                if (DEBUG) cell.highlight();
+              }
             }
           }
         }
       }
-      usedHeading[0] = round(random(-1,1));
-      usedHeading[1] = round(random(-1,1));
+      usedHeading[0] = round(random(-1, 1));
+      usedHeading[1] = round(random(-1, 1));
     }
     return sightCells;
   }
@@ -86,5 +90,10 @@ class Grid {
       strokeWeight(1);
       line(0, y*CELL_SIZE, width, y*CELL_SIZE);
     }
+  }
+
+  void mouseClick(int clickX, int clickY) {
+    int[] cellIndex = {(int)clickX/CELL_SIZE, (int)clickY/CELL_SIZE};
+    cells[cellIndex[0]][cellIndex[1]].toggleObstacle();
   }
 }

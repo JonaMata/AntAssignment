@@ -32,4 +32,8 @@ class WorldManager {
       ants.add(new Ant(nest.getPos(), CELL_SIZE, nest));
     }
   }
+  
+  void mouseClick(int clickX, int clickY) {
+    grid.mouseClick(clickX, clickY);
+  }
 }

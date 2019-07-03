@@ -1,6 +1,7 @@
 class Cell {
   int x, y;
   PVector pos;
+  boolean obstacle = false;
 
   Pheromone pheromone;
   Nutriment nutriment;
@@ -58,5 +59,17 @@ class Cell {
   void display() {
     pheromone.run();
     nutriment.display();
+    if(obstacle) {
+      fill(255,0,0);
+      rect(pos.x,pos.y,CELL_SIZE,CELL_SIZE);
+    }
+  }
+  
+  void toggleObstacle() {
+    obstacle=!obstacle;
+  }
+  
+  boolean hasObstacle() {
+    return obstacle;
   }
 }
