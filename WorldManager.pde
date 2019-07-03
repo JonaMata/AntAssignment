@@ -15,7 +15,6 @@ class WorldManager {
 
   void run() {
     grid.display();
-    grid.update();
     nest.display();
     if (DEBUG) grid.displayGrid(); // display the grid lines when debugging
     for (Ant ant : ants) {
