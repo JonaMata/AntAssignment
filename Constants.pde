@@ -1,3 +1,5 @@
+//Constants for settings for the program
+
 final static int ANTS = 5;
 final static int GRID_WIDTH = 20;
 final static int GRID_HEIGHT = 20;
