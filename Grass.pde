@@ -1,4 +1,6 @@
-//A class for single grass consisting of multiple rotational mass spring damper systems.
+/* A class for single grass consisting of multiple rotational mass spring damper systems.
+ * Based on Algorithms Assignment 6.3 By Jesse Visser & Jonathan Matarazzi
+*/
 
 class Grass {
   ArrayList<GrassPiece> grassPieces;
