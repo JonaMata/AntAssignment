@@ -1,10 +1,10 @@
 class Cell {
   int x, y;
   PVector pos;
+  boolean obstacle = false;
 
   Pheromone pheromone;
   Nutriment nutriment;
-  Nest nest;
 
   Cell (int x, int y) {
     this.x = x;
@@ -12,7 +12,6 @@ class Cell {
     this.pos = new PVector(x*CELL_SIZE, y*CELL_SIZE);
     this.pheromone = new Pheromone(pos, 0);
     this.nutriment = new Nutriment(pos.x, pos.y, 0);
-    this.nest = null;
   }
 
   PVector getPos() {
@@ -51,14 +50,6 @@ class Cell {
     nutriment.removeNutriment();
   }
 
-  void addNest() {
-    nest = new Nest(pos.copy());
-  }
-
-  boolean hasNest() {
-    return nest != null;
-  }
-
   void highlight() {
     colorMode(RGB);
     fill(0, 255, 0, 50);
@@ -68,6 +59,17 @@ class Cell {
   void display() {
     pheromone.run();
     nutriment.display();
-    if (nest != null) nest.display();
+    if(obstacle) {
+      fill(255,0,0);
+      rect(pos.x,pos.y,CELL_SIZE,CELL_SIZE);
+    }
+  }
+  
+  void toggleObstacle() {
+    obstacle=!obstacle;
+  }
+  
+  boolean hasObstacle() {
+    return obstacle;
   }
 }

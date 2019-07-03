@@ -16,3 +16,7 @@ void draw() {
   background(255);
   worldManager.run();
 }
+
+void mousePressed() {
+  worldManager.mouseClick(mouseX, mouseY);
+}
