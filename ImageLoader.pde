@@ -1,4 +1,7 @@
-// ImageLoader loads all the images at start up and saves each set of frames for the renderer to access.
+/* ImageLoader loads all the images at start up and saves each set of frames for the renderer to access.
+ * Based on Listing files in directories and subdirectories by Daniel Shiffman. 
+ * https://processing.org/examples/directorylist.html
+ */
 
 class ImageLoader {
   ArrayList<ArrayList<PImage>> animations = new ArrayList<ArrayList<PImage>>();

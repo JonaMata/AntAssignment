@@ -1,4 +1,7 @@
-// Particle object displays and moves particles that exponentially decay.
+/* Particle object displays and moves particles that exponentially decay.
+ * Based on Simple Particle System by Daniel Shiffman.
+ * https://processing.org/examples/simpleparticlesystem.html
+ */
 
 class Particle {
   PVector pos, vel;
