@@ -8,7 +8,7 @@ class WorldManager {
     nest = new Nest(grid.getRandomPos());
     ants = new ArrayList<Ant>(ANTS);
     for (int i = 0; i < ANTS; i++) {
-      ants.add(new Ant(grid.getRandomPos(), CELL_SIZE, nest.getPos()));
+      ants.add(new Ant(grid.getRandomPos(), CELL_SIZE, nest));
     }
     grid.placeRandomNutrition();
   }
@@ -23,11 +23,13 @@ class WorldManager {
       ArrayList<Cell> antSightCells = grid.getSight(ant.getSearchPos(), ant.getHeading());
       ant.move(antSightCells);
     }
+    
+    addAnts(nest.getSpawnAmount());
   }
 
   void addAnts(int amount) {
     for (int i = 0; i < amount; i++) {
-      ants.add(new Ant(grid.getRandomPos(), CELL_SIZE, nest.getPos()));
+      ants.add(new Ant(nest.getPos(), CELL_SIZE, nest));
     }
   }
 }

@@ -6,11 +6,14 @@ class Ant {
   PVector pos, vel, acc, nestPos;
   boolean hasNutriment;
   float maxSpeed;
+  
+  Nest nest;
 
-  Ant(PVector pos, int size, PVector nestPos) {
+  Ant(PVector pos, int size, Nest nest) {
     this.pos = pos.copy();
     this.vel = new PVector(0, 0);
-    this.nestPos = nestPos;
+    this.nest = nest;
+    this.nestPos = nest.getPos();
     this.acc = new PVector(0, 0);
     this.maxSpeed = 1;
     this.animation = new Render(0, 60, size, size+size/4, 0);
@@ -30,7 +33,7 @@ class Ant {
 
   void update() {
 
-    if (dist(pos.x, pos.y, nestPos.x, nestPos.y)<CELL_SIZE) {
+    if (hasNutriment && dist(pos.x, pos.y, nestPos.x, nestPos.y)<CELL_SIZE) {
       atNest();
     }
 
@@ -142,6 +145,7 @@ class Ant {
 
   void atNest() {
     hasNutriment = false;
+    nest.addNutriment();
   }
 
   boolean canSearch() {
