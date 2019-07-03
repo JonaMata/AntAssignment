@@ -1,3 +1,8 @@
+/* A class for single grid cell.
+ * It can contain multiple objects and has methods to modify those and check their availability.
+ * A cell can contain nutriments, pheromones and possibly an obstacle.
+*/
+
 class Cell {
   int x, y;
   PVector pos;
@@ -64,6 +69,7 @@ class Cell {
     if (pheromone != null) pheromone.run();
     if (nutriment != null) nutriment.display();
     if (obstacle) {
+      colorMode(RGB);
       fill(255, 0, 0);
       rect(pos.x, pos.y, CELL_SIZE, CELL_SIZE);
     }

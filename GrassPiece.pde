@@ -1,3 +1,5 @@
+//A class for one piece of a grass consisting of a rotational mass spring damper system.
+
 class GrassPiece {
   float stickLength;
   float speed;
@@ -46,6 +48,7 @@ class GrassPiece {
   
   //Display the grass piece
   void display() {
+    colorMode(RGB);
     fill(0,255,0);
     strokeWeight(0);
     stroke(0,255,0);
@@ -61,7 +64,6 @@ class GrassPiece {
     
     rotate(rotation);
     translate(0,stickLength);
-    //line(0,0,0,stickLength);
   }
   
   //Get the current force

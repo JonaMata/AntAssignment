@@ -1,3 +1,5 @@
+//A class for single grass consisting of multiple rotational mass spring damper systems.
+
 class Grass {
   ArrayList<GrassPiece> grassPieces;
   PVector pos;
@@ -8,7 +10,7 @@ class Grass {
     this.grassWidth = grassWidth;
     grassPieces = new ArrayList<GrassPiece>();
     float widthModifier = grassWidth/parts;
-    //create the individual mass sprig dampers systems and calculate the correct width and height for them
+    //Create the individual mass sprig dampers systems (grass pieces) and calculate the correct width and height for them.
     for (int i = 0; i< parts; i++) {
       float lowerWidth = grassWidth-i*widthModifier;
       float higherWidth = grassWidth-(i+1)*widthModifier;
