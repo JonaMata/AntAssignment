@@ -3,13 +3,14 @@ class Ant {
   Render animation;
   Nutriment nutriment;
   int[] heading;
-  PVector pos, vel, acc;
+  PVector pos, vel, acc, nestPos;
   boolean hasNutriment;
   float maxSpeed;
 
-  Ant(PVector pos, int size) {
+  Ant(PVector pos, int size, PVector nestPos) {
     this.pos = pos.copy();
     this.vel = new PVector(0, 0);
+    this.nestPos = nestPos;
     this.acc = new PVector(0, 0);
     this.maxSpeed = 1;
     this.animation = new Render(0, 60, size, size+size/4, 0);
@@ -27,8 +28,19 @@ class Ant {
     }
   }
 
-  void update() {    
+  void update() {
+
+    if (dist(pos.x, pos.y, nestPos.x, nestPos.y)<CELL_SIZE) {
+      atNest();
+    }
+
+
     if (dest != null) {
+      PVector destPos = dest.getPos();
+      if (dest.hasNutriment() &&  dist(pos.x, pos.y, destPos.x, destPos.y)<CELL_SIZE) {
+        grabNutriment(dest);
+      }
+
       PVector force = dest.getPos().copy().sub(pos).setMag(0.2);
       acc.add(force);
       vel.add(acc);
@@ -44,52 +56,56 @@ class Ant {
     update();
   }
 
-  void move(Cell[][] cells) {
+  void move(ArrayList<Cell> cells) {
     if (canSearch()) {
-      int[] cellPos = getSearchPos();
-      ArrayList<Cell> emptyCells = new ArrayList<Cell>();
-      ArrayList<Cell> pheromoneCells = new ArrayList<Cell>();
-      ArrayList<Cell> foodCells = new ArrayList<Cell>();
-      Cell nestCell = null;
+      if (hasNutriment) {
 
-      for (int i = (heading[0]<1 ? -1 : 0); i < (heading[0]>-1 ? 2 : 1); i++) {
-        for (int j = (heading[1]<1 ? -1 : 0); j < (heading[1]>-1 ? 2 : 1); j++) {
-          if (!(i==0&&j==0) && cellPos[0]+i >= 0 && cellPos[0]+i < GRID_WIDTH && cellPos[1]+j >= 0 && cellPos[1]+j < GRID_HEIGHT) {
-            Cell cell = cells[cellPos[0]+i][cellPos[1]+j];
-            if (DEBUG) cell.highlight();
-            if (cell.hasNutriment()) {
-              foodCells.add(cell);
-            } else if (cell.hasPheromone()) {
-              pheromoneCells.add(cell);
-            } else if (cell.hasNest()) {
-              nestCell = cell;
-            } else {
-              emptyCells.add(cell);
+        println(dist(pos.x, pos.y, nestPos.x, nestPos.y));
+
+        Cell closestToNest = null;
+        float closestDist = Float.POSITIVE_INFINITY;
+        for (Cell cell : cells) {
+          PVector cellPos = cell.getPos();
+          float nestDistance = dist(nestPos.x, nestPos.y, cellPos.x, cellPos.y);
+          if (nestDistance < closestDist) {
+            closestDist = nestDistance;
+            closestToNest = cell;
+          }
+        }
+        setDest(closestToNest);
+      } else {
+        ArrayList<Cell> emptyCells = new ArrayList<Cell>();
+        ArrayList<Cell> pheromoneCells = new ArrayList<Cell>();
+        ArrayList<Cell> foodCells = new ArrayList<Cell>();
+
+        for (Cell cell : cells) {
+          if (DEBUG) cell.highlight();
+          if (cell.hasNutriment()) {
+            foodCells.add(cell);
+          } else if (cell.hasPheromone()) {
+            pheromoneCells.add(cell);
+          } else {
+            emptyCells.add(cell);
+          }
+        }
+
+        if (foodCells.size() > 0) {
+          setDest(foodCells.get((int) random(foodCells.size())));
+        } else if (pheromoneCells.size() > 0 && (random(0, 100)>EXPLORE_CHANCE || emptyCells.size() == 0 || hasNutriment)) {
+          Cell chosenCell = null;
+          for (Cell cell : pheromoneCells) {
+            if (chosenCell == null || cell.getPheromoneValue() > chosenCell.getPheromoneValue()) {
+              chosenCell = cell;
+            }
+            if (random(0, 100) < RANDOM_PHEROMONE_CHANCE) {
+              chosenCell = cell;
+              break;
             }
           }
+          if (chosenCell != null) setDest(chosenCell);
+        } else if (emptyCells.size() > 0) {
+          setDest(emptyCells.get(floor(random(0, emptyCells.size()))));
         }
-      }
-
-      if (nestCell != null) {
-        setDest(nestCell);
-        atNest();
-      } else if (foodCells.size() > 0) {
-        setDest(foodCells.get((int) random(foodCells.size())));
-        grabNutriment(foodCells.get(0));
-      } else if (pheromoneCells.size() > 0 && (random(0, 100)>EXPLORE_CHANCE || emptyCells.size() == 0 || hasNutriment)) {
-        Cell chosenCell = null;
-        for (Cell cell : pheromoneCells) {
-          if (chosenCell == null || cell.getPheromoneValue() > chosenCell.getPheromoneValue()) {
-            chosenCell = cell;
-          }
-          if (random(0, 100) < RANDOM_PHEROMONE_CHANCE) {
-            chosenCell = cell;
-            break;
-          }
-        }
-        if (chosenCell != null) setDest(chosenCell);
-      } else if (emptyCells.size() > 0) {
-        setDest(emptyCells.get(floor(random(0, emptyCells.size()))));
       }
     }
   }

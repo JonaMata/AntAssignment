@@ -1,5 +1,4 @@
 class Grid {
-  ArrayList<Ant> ants;
   Cell[][] cells;
 
   Grid() {
@@ -9,7 +8,6 @@ class Grid {
         cells[i][j] = new Cell(i, j);
       }
     }
-    ants = new ArrayList<Ant>();
   }
 
   void display() {
@@ -18,16 +16,9 @@ class Grid {
         cell.display();
       }
     }
-    for (Ant ant : ants) {
-      ant.display();
-    }
   }
 
   void update() {
-    for (Ant ant : ants) {
-      ant.move(cells);
-      ant.update();
-    }
   }
 
   void placeRandomNutrition() {
@@ -47,6 +38,40 @@ class Grid {
 
   PVector getRandomPos() {
     return getRandomCell().getPos();
+  }
+
+  ArrayList<Cell> getSight(int[] pos, int[] heading) {
+    ArrayList<Cell> sightCells = new ArrayList<Cell>();
+    
+    int[] usedHeading = new int[2];
+    
+    arrayCopy(heading, usedHeading);
+    while (sightCells.size() < 1) {
+      if (usedHeading[0]*usedHeading[1]!=0) {
+        for (int i = (usedHeading[0]<1 ? -1 : 0); i < (usedHeading[0]>-1 ? 2 : 1); i++) {
+          for (int j = (usedHeading[1]<1 ? -1 : 0); j < (usedHeading[1]>-1 ? 2 : 1); j++) {
+            if (!(i==0&&j==0) && pos[0]+i >= 0 && pos[0]+i < GRID_WIDTH && pos[1]+j >= 0 && pos[1]+j < GRID_HEIGHT) {
+              Cell cell = cells[(int)pos[0]+i][(int)pos[1]+j];
+              sightCells.add(cell);
+              if (DEBUG) cell.highlight();
+            }
+          }
+        }
+      } else {
+        for (int i = (usedHeading[0]<1 ? -1 : 1); i < (usedHeading[0]>-1 ? 2 : 0); i++) {
+          for (int j = (usedHeading[1]<1 ? -1 : 1); j < (usedHeading[1]>-1 ? 2 : 0); j++) {
+            if (!(i==0&&j==0) && pos[0]+i >= 0 && pos[0]+i < GRID_WIDTH && pos[1]+j >= 0 && pos[1]+j < GRID_HEIGHT) {
+              Cell cell = cells[(int)pos[0]+i][(int)pos[1]+j];
+              sightCells.add(cell);
+              if (DEBUG) cell.highlight();
+            }
+          }
+        }
+      }
+      usedHeading[0] = round(random(-1,1));
+      usedHeading[1] = round(random(-1,1));
+    }
+    return sightCells;
   }
 
   void displayGrid() {

@@ -11,6 +11,10 @@ class Nest {
   }
   
   Ant spawnAnt() {
-    return new Ant(pos.copy(), CELL_SIZE);
+    return new Ant(pos.copy(), CELL_SIZE, pos);
+  }
+  
+  PVector getPos() {
+    return pos;
   }
 }
