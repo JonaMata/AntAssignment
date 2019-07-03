@@ -1,4 +1,6 @@
-//A class for one piece of a grass consisting of a rotational mass spring damper system.
+/* A class for one piece of a grass consisting of a rotational mass spring damper system.
+ * Based on Algorithms Assignment 6.3 By Jesse Visser & Jonathan Matarazzi
+*/
 
 class GrassPiece {
   float stickLength;
