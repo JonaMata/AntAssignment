@@ -2,6 +2,7 @@ class ImageLoader {
   ArrayList<ArrayList<PImage>> animations = new ArrayList<ArrayList<PImage>>();
 
   ImageLoader() {
+    imageMode(CENTER);
     String[] directories = listFileNames(sketchPath() + "/data");
     for (int i = 0; i < directories.length; i++) {
       String[] files = listFileNames(sketchPath() + "/data/" + directories[i]);

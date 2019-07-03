@@ -1,6 +1,7 @@
+
 class Ant {
   Cell dest;
-  Render animation;
+  Render render;
   Nutriment nutriment;
   int[] heading;
   PVector pos, vel, acc, nestPos;
@@ -16,14 +17,14 @@ class Ant {
     this.nestPos = nest.getPos();
     this.acc = new PVector(0, 0);
     this.maxSpeed = 1;
-    this.animation = new Render(0, 60, size, size+size/4, 0);
+    this.render = new Render(0, size/2, 2*size/3);
     this.heading = new int[] {1, 0};
-    this.nutriment = new Nutriment(pos.x, pos.y, 1);
+    this.nutriment = new Nutriment(pos, 1);
   }
 
   void display() {
-    animation.display(pos.x, pos.y, vel.heading());
-    animation.play();
+    render.display(pos.x, pos.y, vel.heading());
+    render.play();
 
     if (hasNutriment) {
       nutriment.move(pos);
@@ -62,9 +63,6 @@ class Ant {
   void move(ArrayList<Cell> cells) {
     if (canSearch()) {
       if (hasNutriment) {
-
-        println(dist(pos.x, pos.y, nestPos.x, nestPos.y));
-
         Cell closestToNest = null;
         float closestDist = Float.POSITIVE_INFINITY;
         for (Cell cell : cells) {
