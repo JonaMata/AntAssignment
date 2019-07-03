@@ -1,3 +1,5 @@
+// Pheromone object displays pheromone particles and keeps track of their amount.
+
 class Pheromone {
   float hue, value, maxValue;
   PVector origin;

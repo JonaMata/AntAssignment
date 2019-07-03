@@ -1,16 +1,16 @@
+// Particle system manages particles and their amount.
+
 class ParticleSystem {
   ArrayList<Particle> particles;
   PVector origin;
   float hue;
 
-  // ininitialize a certain amount of particles
   ParticleSystem(PVector origin, float hue) {
     this.origin = origin;
     this.hue = hue;
     particles = new ArrayList<Particle>();
   }
 
-  // add a new particle to particles ArrayList
   void addParticle() {
     particles.add(new Particle(origin, hue));
   }
