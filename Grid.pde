@@ -25,7 +25,7 @@ class Grid {
     for (int i = 0; i < GRID_HEIGHT; i++) {
       for (int j = 0; j < GRID_WIDTH; j++) {
         if (noise(i, j) < NUTRITION_CHANCE) {
-          int amount = (int)random(0, 2);
+          int amount = constrain((int)random(0, 6), 0, 5);
           cells[i][j].placeNutriment(amount);
         }
       }

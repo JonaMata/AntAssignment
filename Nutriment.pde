@@ -1,18 +1,16 @@
 class Nutriment {
   PVector pos;
-  int size;
-  
+  int value;
+  Render render;
 
-  Nutriment(float x, float y, int size) {
-    this.pos = new PVector(x, y);
-    this.size = size;
+  Nutriment(PVector pos, int value) {
+    render = new Render(1, 2*CELL_SIZE/3, 2*CELL_SIZE/3);
+    this.pos = pos.copy();
+    this.value = value;
   }
 
   void display() {
-    colorMode(RGB);
-    fill(255, 0, 0);
-    noStroke();
-    ellipse(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2, size*CELL_SIZE/2, size*CELL_SIZE/2);
+    if (value > 0) render.displayFrame(value-1, pos, 0);
   }
   
   void move(PVector pos) {
@@ -20,18 +18,18 @@ class Nutriment {
   }
   
   void addNutriment(int amount) {
-    size += amount;
+    value += amount;
   }
   
   void removeNutriment() {
-    size--;
+    value--;
   }
   
   boolean isThere() {
-    return size > 0;
+    return value > 0;
   }
   
   float getSize() {
-    return size;
+    return value;
   }
 }

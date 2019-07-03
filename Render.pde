@@ -1,13 +1,9 @@
 class Render {
   ArrayList<PImage> frames;
-  int frameNumber, count;
-  boolean isPaused;
+  int frameNumber;
 
-  Render(int i, int count, int w, int h, int startFrame) {
+  Render(int i, int w, int h) {
     frames = new ArrayList<PImage>();
-    imageMode(CENTER);
-    this.count = count;
-    this.frameNumber = startFrame;
     frames = imageLoader.getAnimation(i);
     for (PImage frame : frames) {
       frame.resize(w, h);
@@ -23,14 +19,14 @@ class Render {
   }
 
   void play() {
-    if (!isPaused) frameNumber = (frameNumber + 1) % count;
+    frameNumber = (frameNumber + 1) % frames.size();
   } 
-
-  void playFor(int duration) {
-    if (!isPaused && frameNumber < duration) frameNumber = (frameNumber + 1) % count;
-  }
-
-  void togglePause(boolean pauseState) {
-    isPaused = pauseState;
+  
+  void displayFrame(int i, PVector pos, float r) {
+    pushMatrix();
+    translate(pos.x+CELL_SIZE/2, pos.y+CELL_SIZE/2);
+    rotate(r+HALF_PI);
+    image(frames.get(constrain(i, 0, frames.size())), 0, 0);
+    popMatrix();
   }
 }
