@@ -1,3 +1,5 @@
+// Nutriment object displays the nutriments and keeps track of their amount.
+
 class Nutriment {
   PVector pos;
   int value;
@@ -27,9 +29,5 @@ class Nutriment {
   
   boolean isThere() {
     return value > 0;
-  }
-  
-  float getSize() {
-    return value;
   }
 }
