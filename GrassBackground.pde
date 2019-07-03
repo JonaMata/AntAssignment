@@ -40,4 +40,9 @@ class GrassBackground {
     }
     popMatrix();
   }
+  
+  void run() {
+    update();
+    display();
+  }
 }

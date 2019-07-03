@@ -10,15 +10,12 @@ class Render {
     }
   }
 
-  void display(float x, float y, float r) {
+  void play(float x, float y, float r) {
     pushMatrix();
     translate(x+CELL_SIZE/2, y+CELL_SIZE/2);
     rotate(r+HALF_PI);
     image(frames.get(frameNumber), 0, 0);
     popMatrix();
-  }
-
-  void play() {
     frameNumber = (frameNumber + 1) % frames.size();
   } 
   
