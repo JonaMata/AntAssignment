@@ -1,4 +1,7 @@
-// Render animates and displays all images in the scene. Images are taken from the imageLoader.
+/* Render animates and displays all images in the scene. Images are taken from the imageLoader.
+ * Based on Animated Sprite by James Paterson. 
+ * https://processing.org/examples/animatedsprite.html
+ */
 
 class Render {
   ArrayList<PImage> frames;

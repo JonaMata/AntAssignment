@@ -1,4 +1,7 @@
-// Particle system manages particles and their amount.
+/* Particle system manages particles and their amount.
+ * Based on Simple Particle System by Daniel Shiffman.
+ * https://processing.org/examples/simpleparticlesystem.html
+ */
 
 class ParticleSystem {
   ArrayList<Particle> particles;

@@ -1,6 +1,9 @@
 /*
  * Ant algorithm based on realistic ant movement using pheromones.
- * By Jesse Visser & Jonathan Matarazzi
+ * Insipred by Biologic Transport Network Algorithms,
+ * authored by Loes Uffelen, Dennis Vinke and Joep Schyns.
+ * 
+ * Program written by Jesse Visser & Jonathan Matarazzi.
 */
 
 WorldManager worldManager;
